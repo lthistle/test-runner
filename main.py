@@ -20,7 +20,7 @@ def do_docker_run(request):
     with open(dir_name + "/test.cc", "wb") as f:
         f.write(request.get_data())
 
-    output = ""
+    output = b""
     #run docker compiler
     sp = subprocess.run(f"cd {dir_name} && docker run -v $(pwd):/outside --rm tc_compiler", shell = True, capture_output=True)
     output += sp.stdout
@@ -28,6 +28,7 @@ def do_docker_run(request):
     #run docker runner
     sp = subprocess.run(f"cd {dir_name} && docker run -v $(pwd)/bin:/outside --rm tc_runner", shell = True, capture_output=True)
     output += sp.stdout
+
     #cleanup
     subprocess.run(f"rm -rf {dir_name}", shell = True)
 

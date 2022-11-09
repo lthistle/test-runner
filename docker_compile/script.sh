@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ./outside
+cd /outside
 
 timeout -k 1 10 make test.exe 2> /dev/null
 if [ $? -ne 0 ]
